@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe "Memory" do
-  let(:ram) { Memory.new(size: 1024) }
+  let(:ram) { Memory.new(1024) }
   it "should store values in cells" do
     ram.store(20) { 23 }
     ram.read(20).should be 23
