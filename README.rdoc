@@ -1,6 +1,8 @@
 = chivas
 
-Description goes here.
+Chivas is an educational tool for learning about assembler and virtual
+machines. It runs an extremely simple machine, which can be used for
+teaching basic notions of Computer Organization.
 
 == Contributing to chivas
  

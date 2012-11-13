@@ -18,7 +18,7 @@ Jeweler::Tasks.new do |gem|
   gem.homepage = "http://github.com/paologianrossi/chivas"
   gem.license = "MIT"
   gem.summary = %Q{Chivas is (a) virtual machine assembler}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.description = %Q{Chivas is an educational tool for learning about assembler and virtual machines}
   gem.email = "paolino.gianrossi@gmail.com"
   gem.authors = ["Paolo Gianrossi"]
   # dependencies defined in Gemfile
