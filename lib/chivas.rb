@@ -1,1 +1,2 @@
 require 'memory'
+require 'cpu'
