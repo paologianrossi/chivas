@@ -51,5 +51,31 @@ describe "Cpu" do
       cpu.exec(8, 99)
       cpu.should_not be_running
     end
+    it "should fail with any other code" do
+      expect { cpu.exec(42, 192) }.to raise_error
+    end
+    it "should run a short program" do
+      memory.should_receive(:read).with(0).and_return(5010)
+      memory.should_receive(:read).with(1).and_return(11)
+      memory.should_receive(:read).with(2).and_return(8000)
+      memory.should_receive(:read).with(10).and_return(30)
+      memory.should_receive(:read).with(11).and_return(12)
+
+      cpu.ram = memory
+      cpu.run
+      cpu.acc.should eq(42)
+    end
   end
+  
+  describe "inspection" do
+    let(:cpu) { Cpu.new() }
+    it "should show all registry data in the right format" do
+      memory.should_receive(:read).with(0).and_return(8123)
+      cpu.ram = memory
+      cpu.acc=10
+      cpu.run
+      cpu.inspect.should eq("<CPU: [acc: 10] [PC: 1] [IR[8, 123]] STOPPED]>")
+    end
+  end
+  
 end
