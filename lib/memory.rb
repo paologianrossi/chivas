@@ -2,7 +2,8 @@ class Memory
 
   # the number of words the instance of Memory can hold
   attr_accessor :size
-
+  attr_accessor :storage
+  
   # create a new instance of Memory with given +size+
   def initialize(size)
     @size = size or raise "Size is a required parameter to Memory"
