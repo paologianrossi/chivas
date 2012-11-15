@@ -1,12 +1,23 @@
 require 'highline'
 
 class Cpu
+  # Accumulator registry
   attr_accessor :acc
+
+  # Memory
   attr_accessor :ram
+
+  # Program Counter
   attr_accessor :pc
+
+  # Instruction registry
   attr_accessor :ir
+
+  # Input/Output device
   attr_accessor :io
-  
+
+  # Possible +options+ are +:ram+ and +:io+. The +io:+ option defaults
+  # to an HighLine instance
   def initialize(options={})
     @ram = options[:ram]
     @io = options[:io] || HighLine.new
@@ -17,7 +28,10 @@ class Cpu
     raise "Undefined accumulator value" if @acc.nil?
     @acc
   end
-  
+
+  # Execute an instruction, or die trying.
+  # Instructions are made of +opcode+ and +arg+. The +arg+ part, when
+  # needed, is a memory address. When not needed is ignore. 
   def exec(opcode, arg)
     case opcode
     when 0
@@ -43,6 +57,8 @@ class Cpu
     end
   end
 
+  # Run the cpu. While running, the cpu does a fetch-decode-execute
+  # loop. The machine stops when it meets a '8xxx' instruction.
   def run
     @running = true
     begin
@@ -53,11 +69,13 @@ class Cpu
       end
     end 
   end
-  
+
+  # Is the machine running?
   def running?
     @running
   end
 
+  # :nodoc:
   def inspect
     "<CPU: [acc: #{@acc}] [PC: #{@pc}] [IR#{@ir}] #{running? ? "RUNNING":"STOPPED"}]>"
   end
