@@ -1,4 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
+require 'highline/simulate'
 
 describe "Cpu" do
   let(:memory) { mock(Memory) }
@@ -20,11 +21,19 @@ describe "Cpu" do
       cpu.exec(1, 100)
       cpu.acc.should be 30     
     end
-    
-    it "should read with code 2"
+    it "should read with code 2" do
+      $terminal = cpu.io
+      
+      HighLine::Simulate.with('9999') do
+        cpu.exec(2, 123)
+      end
+      cpu.acc.should eq(9999)        
+    end
+
     it "should write with code 3"
+      
     it "should store with code 4" do
-      memory.should_receive(:write).with(100)
+      memory.should_receive(:store).with(100)
       cpu.ram = memory
       cpu.exec(4, 100)
     end    
