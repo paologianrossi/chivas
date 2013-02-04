@@ -4,7 +4,7 @@ require 'highline/simulate'
 describe "Cpu" do
   let(:memory) { mock(Memory) }
   let(:cpu) { Cpu.new }
-  
+
   describe "execute" do
     it "should add with code 0" do
       memory.should_receive(:read).and_return(30)
@@ -13,30 +13,30 @@ describe "Cpu" do
       cpu.exec(0, 100)
       cpu.acc.should be 42
     end
-    
+
     it "should subtract with code 1" do
       memory.should_receive(:read).and_return(12)
       cpu.ram = memory
       cpu.acc = 42
       cpu.exec(1, 100)
-      cpu.acc.should be 30     
+      cpu.acc.should be 30
     end
     it "should read with code 2" do
       $terminal = cpu.io
-      
+
       HighLine::Simulate.with('9999') do
         cpu.exec(2, 123)
       end
-      cpu.acc.should eq(9999)        
+      cpu.acc.should eq(9999)
     end
 
     it "should write with code 3"
-      
+
     it "should store with code 4" do
       memory.should_receive(:store).with(100)
       cpu.ram = memory
       cpu.exec(4, 100)
-    end    
+    end
     it "should load with code 5" do
       memory.should_receive(:read).with(100).and_return(123)
       cpu.ram = memory
@@ -75,7 +75,7 @@ describe "Cpu" do
       cpu.acc.should eq(42)
     end
   end
-  
+
   describe "inspection" do
     let(:cpu) { Cpu.new() }
     it "should show all registry data in the right format" do
@@ -86,5 +86,5 @@ describe "Cpu" do
       cpu.inspect.should eq("<CPU: [acc: 10] [PC: 1] [IR[8, 123]] STOPPED]>")
     end
   end
-  
+
 end
