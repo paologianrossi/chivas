@@ -4,7 +4,7 @@ require 'highline/simulate'
 describe "Cpu" do
   let(:memory) { mock(Memory) }
   let(:cpu) { Cpu.new }
-
+  let(:io) { mock(HighLine) }
   describe "execute" do
     it "should add with code 0" do
       memory.should_receive(:read).and_return(30)
@@ -30,7 +30,12 @@ describe "Cpu" do
       cpu.acc.should eq(9999)
     end
 
-    it "should write with code 3"
+    it "should write with code 3" do
+      io.should_receive(:say).with("--> 100")
+      cpu.io = io
+      cpu.acc = 100
+      cpu.exec(3,0)
+    end
 
     it "should store with code 4" do
       memory.should_receive(:store).with(100)
